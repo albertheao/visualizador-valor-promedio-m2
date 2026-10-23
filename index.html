@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Valor promedio de una función</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{--navy:#12324a;--blue:#0057b8;--cyan:#0b6380;--gold:#d6a52a;--gold-dark:#806000;--orange:#d96d16;--violet:#7357b8;--turquoise:#008c95;--ink:#173042;--muted:#526b79;--border:#d7e2e7;--ice:#edf4f6;--cream:#fff8e5;--red:#b42318;--white:#fff}
+*{box-sizing:border-box}[hidden]{display:none!important}html,body{margin:0;min-height:100%}body{padding:28px 16px 54px;background:linear-gradient(180deg,var(--navy) 0 8px,var(--ice) 8px 100%);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}.app{width:min(1120px,100%);margin:auto}.institution{margin:0 0 8px;color:var(--cyan);font-size:.72rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase}h1{margin:0 0 8px;padding-left:15px;border-left:5px solid var(--gold);color:var(--navy);font-size:clamp(1.75rem,4vw,2.35rem);line-height:1.14}.intro{max-width:920px;margin:0;color:var(--muted);line-height:1.55}.card{margin-top:17px;border:1px solid var(--border);border-radius:15px;background:var(--white);box-shadow:0 10px 28px rgba(18,50,74,.07)}.controls{display:grid;grid-template-columns:minmax(280px,1.15fr) minmax(250px,1fr);gap:18px;padding:18px}.control-group{display:grid;gap:15px}.label{display:block;margin-bottom:7px;color:var(--navy);font-weight:800}.cases{display:grid;grid-template-columns:1fr 1fr;gap:10px}.case{position:relative}.case input{position:absolute;opacity:0}.case label{display:block;height:100%;padding:12px;border:2px solid var(--border);border-radius:11px;cursor:pointer}.case label strong{display:block;color:var(--navy)}.case label span{display:block;margin-top:4px;color:var(--muted);font-size:.79rem;line-height:1.35}.case input:checked+label{border-color:var(--cyan);background:#edf7fa;box-shadow:0 0 0 3px rgba(11,99,128,.12)}.range-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:7px;color:var(--navy);font-weight:800}.value-chip{min-width:78px;padding:5px 10px;border-radius:999px;background:var(--cream);color:var(--gold-dark);text-align:center;font-weight:850}input[type=range]{width:100%;accent-color:var(--violet)}button,input{font:inherit}button:focus-visible,input:focus-visible,label:focus-visible{outline:3px solid rgba(214,165,42,.42);outline-offset:2px}.reveal{align-self:end;padding:11px 14px;border:0;border-radius:9px;background:var(--navy);color:#fff;font-weight:800;cursor:pointer}.reveal:hover{background:#1b4866}.theorem{height:100%;padding:16px;border:1px solid #cfe0e6;border-radius:12px;background:linear-gradient(145deg,#f9fcfd,#edf6f8)}.theorem h2{margin:0 0 8px;color:var(--navy);font-size:1.08rem}.theorem p{margin:7px 0;color:var(--muted);line-height:1.5}.formula{padding:10px;border-left:4px solid var(--gold);background:var(--cream);color:var(--navy);text-align:center}.formula mjx-container[display="true"]{margin:.35rem 0!important}.visual{padding:14px}.legend{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 18px;margin:2px 0 5px;color:var(--muted);font-size:.82rem}.legend span{display:inline-flex;align-items:center;gap:7px}.swatch{width:16px;height:6px;border-radius:4px}.plot{height:520px}.results{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:17px}.result{padding:15px;border:1px solid var(--border);border-radius:12px;background:#fff}.result h3{margin:0;color:var(--cyan);font-size:.77rem;letter-spacing:.055em;text-transform:uppercase}.result p{margin:8px 0 0;color:var(--navy);font-size:1.03rem;font-weight:800}.result.average{border-color:#ead491;background:var(--cream)}.result.candidate{border-color:#d8cef1;background:#f7f4fc}.feedback{margin-top:12px;padding:12px 14px;border-radius:10px;background:#f3f7f8;color:var(--muted);line-height:1.45}.feedback.success{background:#e9f6ee;color:#24633d;font-weight:750}.explanation{padding:18px}.explanation h2{margin:0 0 9px;color:var(--navy);font-size:1.08rem}.explanation p{margin:7px 0;color:var(--muted);line-height:1.55}.equality{margin-top:11px;padding:11px 13px;border-left:4px solid var(--turquoise);background:#effafa;color:var(--ink)}footer{margin-top:24px;padding-top:16px;border-top:1px solid #cbd9df;color:var(--muted);font-size:.78rem;line-height:1.7;text-align:center}footer p{margin:0}footer p+p{margin-top:3px}footer strong{color:var(--navy)}footer a{color:var(--cyan)}
+.derivation{padding:20px}.derivation-grid{display:grid;grid-template-columns:minmax(390px,1fr) minmax(470px,1.35fr);gap:24px;align-items:center}.derivation h2{margin:0 0 8px;color:var(--navy);font-size:1.25rem}.derivation p{margin:7px 0;color:var(--muted);line-height:1.55}.sample-control{margin-top:15px;padding:14px;border:1px solid var(--border);border-radius:11px;background:#f8fbfc}.sample-inputs{display:grid;grid-template-columns:1fr 88px;gap:10px;align-items:center}.sample-inputs input[type=number]{width:100%;padding:8px;border:1px solid #aebfc7;border-radius:8px;color:var(--navy);font-weight:800;text-align:center}.derivation-formula{display:flex;align-items:center;justify-content:center;min-height:102px;margin-top:13px;padding:16px 18px;border-left:4px solid var(--gold);background:var(--cream);text-align:center;overflow-x:auto}.derivation-formula mjx-container[display="true"]{width:100%;margin:.25rem 0!important;padding:3px 0}.sampling-visual{min-width:0;align-self:center}.sample-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}.sample-summary div{min-width:0;padding:10px;border-radius:9px;background:#edf6f8;color:var(--navy)}.sample-summary small{display:block;color:var(--muted);font-weight:700}.sample-summary strong{display:block;margin-top:4px;font-size:.94rem}.sample-summary .sample-error{grid-column:1/-1;background:#fff3eb;color:#8a410c;text-align:center}.sample-plot{width:100%;height:430px;margin:auto}
+.rms-study{padding:20px}.rms-grid{display:grid;grid-template-columns:minmax(300px,.9fr) minmax(480px,1.35fr);gap:24px;align-items:center}.rms-copy h2{margin:0 0 8px;color:var(--navy);font-size:1.25rem}.rms-copy p{margin:7px 0;color:var(--muted);line-height:1.55}.rms-formula{margin:14px 0;padding:13px;border-left:4px solid var(--gold);background:var(--cream);text-align:center}.rms-control{padding:14px;border:1px solid var(--border);border-radius:11px;background:#f8fbfc}.rms-cases{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.rms-case{position:relative}.rms-case input{position:absolute;opacity:0}.rms-case label{display:flex;align-items:center;justify-content:center;min-height:48px;padding:8px;border:2px solid var(--border);border-radius:9px;background:#fff;color:var(--navy);font-size:.82rem;font-weight:800;text-align:center;cursor:pointer}.rms-case input:checked+label{border-color:var(--cyan);background:#edf7fa;box-shadow:0 0 0 3px rgba(11,99,128,.12)}.rms-case-formula{min-height:42px;margin-top:10px;padding:8px;border-radius:8px;background:var(--cream);color:var(--navy);text-align:center}.rms-results{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.rms-results div{padding:11px;border-radius:9px;background:#edf6f8;color:var(--navy)}.rms-results small{display:block;color:var(--muted);font-weight:700}.rms-results strong{display:block;margin-top:4px}.rms-plot{width:100%;height:410px}
+@media(max-width:960px){.derivation-grid,.rms-grid,.controls{grid-template-columns:1fr}.sampling-visual{width:min(720px,100%);justify-self:center}.rms-visual{width:min(720px,100%);justify-self:center}.results{grid-template-columns:1fr 1fr}.plot{height:455px}.sample-plot,.rms-plot{height:410px}}@media(max-width:560px){body{padding:23px 8px 42px}.derivation,.rms-study,.controls,.visual,.explanation{padding:13px}.cases,.results,.sample-summary,.rms-results,.rms-cases{grid-template-columns:1fr}.derivation-formula{min-height:88px;padding:12px 10px}.plot{height:390px}.sample-plot,.rms-plot{height:350px}.legend{justify-content:flex-start}}
+</style>
+</head>
+<body>
+<main class="app">
+<header>
+<p class="institution">Universidad Galileo · Departamento de Matemática Aplicada</p>
+<h1>Valor promedio de una función</h1>
+</header>
+
+<section class="card derivation" aria-labelledby="derivation-title">
+<div class="derivation-grid">
+<div>
+<h2 id="derivation-title">De promediar muestras al valor promedio</h2>
+<p>Consideramos la función \(f(x)=5+2e^{-x/4}\sin(2x)\) en \([0,2\pi]\). Dividimos el intervalo en \(n\) subintervalos de tamaño \(\Delta x\) y tomamos el punto medio \(x_i^*\) de cada uno. El promedio de los valores muestreados es</p>
+<div class="derivation-formula">\[\overline f_n=\frac{1}{n}\sum_{i=1}^{n}f(x_i^*).\]</div>
+<p>Como \(\Delta x=\frac{b-a}{n}\), multiplicar por \(\Delta x\) convierte la suma de valores en una suma de Riemann. Cuando \(n\to\infty\), esta suma converge a la integral:</p>
+<div class="derivation-formula">\[\begin{aligned}\overline f_n&=\frac{1}{b-a}\sum_{i=1}^{n}f(x_i^*)\,\Delta x,\\[5pt]f_{\mathrm{ave}}&=\lim_{n\to\infty}\overline f_n,\\[5pt]f_{\mathrm{ave}}&=\frac{1}{b-a}\int_a^b f(x)\,dx.\end{aligned}\]</div>
+</div>
+<div class="sampling-visual">
+<div class="legend"><span><i class="swatch" style="background:#0057b8"></i>Función</span><span><i class="swatch" style="background:#7357b8"></i>Valores muestreados</span><span><i class="swatch" style="background:#d96d16"></i>Promedio de las muestras</span><span><i class="swatch" style="background:#d6a52a"></i>Valor promedio exacto</span></div>
+<div id="sample-plot" class="sample-plot" role="img" aria-label="Puntos medios muestreados y convergencia de su promedio al valor promedio exacto"></div>
+<div class="sample-control">
+<div class="range-head"><label for="sample-slider">Número de muestras \(n\)</label><span class="value-chip" id="sample-n-value">\(n=4\)</span></div>
+<div class="sample-inputs"><input id="sample-slider" type="range" min="1" max="80" value="4" step="1"><input id="sample-number" type="number" min="1" max="80" value="4" step="1" aria-label="Número de muestras n"></div>
+<div class="sample-summary"><div><small>Promedio de las muestras</small><strong id="sample-average"></strong></div><div><small>Valor promedio exacto</small><strong id="exact-average"></strong></div><div class="sample-error"><small>Error relativo porcentual</small><strong id="sample-error"></strong></div></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="card rms-study" aria-labelledby="rms-title">
+<div class="rms-grid">
+<div class="rms-copy">
+<h2 id="rms-title">Aplicación: Valor RMS de Señales Eléctricas</h2>
+<p>Compara tres señales con el mismo voltaje pico \(V_p=10\,\mathrm V\) en \([0,2\pi]\). En una señal alterna simétrica, el área neta es \(0\), pero su valor RMS es positivo y mide su magnitud eficaz:</p>
+<div class="rms-formula">\[V_{\mathrm{RMS}}=\sqrt{\frac{1}{2\pi}\int_0^{2\pi}[V(t)]^2\,dt}.\]</div>
+<p>Dos señales pueden tener el mismo valor promedio y producir efectos energéticos diferentes. El valor RMS asigna a una señal variable el voltaje constante equivalente que produciría la misma disipación promedio de potencia en una resistencia.</p>
+</div>
+<div class="rms-visual">
+<div class="legend"><span><i class="swatch" style="background:#0057b8"></i>Señal seleccionada</span><span><i class="swatch" style="background:#d96d16"></i>Valor promedio</span><span><i class="swatch" style="background:#d6a52a"></i>Valor RMS</span></div>
+<div id="rms-plot" class="rms-plot" role="img" aria-label="Comparación entre el voltaje promedio y el voltaje RMS de distintas formas de onda"></div>
+<div class="rms-control">
+<span class="label">Forma de onda</span>
+<div class="rms-cases">
+<div class="rms-case"><input type="radio" id="rms-sine" name="rms-case" value="sine" checked><label for="rms-sine">Sinusoidal</label></div>
+<div class="rms-case"><input type="radio" id="rms-rectified" name="rms-case" value="rectified"><label for="rms-rectified">Rectificada</label></div>
+<div class="rms-case"><input type="radio" id="rms-square" name="rms-case" value="square"><label for="rms-square">Cuadrada</label></div>
+</div>
+<div class="rms-case-formula" id="rms-case-formula"></div>
+<div class="rms-results"><div><small>Voltaje promedio</small><strong id="rms-average"></strong></div><div><small>Voltaje RMS</small><strong id="rms-value"></strong></div></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="card controls" aria-label="Controles del applet">
+<aside class="theorem">
+<h2>Teorema del Valor Medio para Integrales</h2>
+<p>Si \(f\) es continua en el intervalo cerrado \([a,b]\), entonces existe un número \(c\in[a,b]\) tal que:</p>
+<div class="formula">\[\begin{aligned}f(c)&=f_{\mathrm{ave}}=\frac{1}{b-a}\int_a^b f(x)\,dx,\\[5pt]\int_a^b f(x)\,dx&=f(c)(b-a).\end{aligned}\]</div>
+<p>Para funciones positivas, existe un número \(c\) de manera que el rectángulo con base \(b-a\) y altura \(f(c)\) tiene la misma área que la región debajo de la gráfica de \(f\) desde \(a\) hasta \(b\).</p>
+</aside>
+<div class="control-group">
+<div>
+<span class="label">Ejemplos</span>
+<div class="cases">
+<div class="case"><input type="radio" id="case-parabola" name="case" value="parabola" checked><label for="case-parabola"><strong>Función cuadrática</strong><span>\(f(x)=1+x^2\) en \([-1,2]\)</span></label></div>
+<div class="case"><input type="radio" id="case-density" name="case" value="density"><label for="case-density"><strong>Densidad de una varilla</strong><span>\(\rho(x)=\frac{12}{\sqrt{x+1}}\) en \([0,8]\)</span></label></div>
+</div>
+</div>
+<div>
+<div class="range-head"><label for="c-slider">Explorar el punto \(c\)</label><span class="value-chip" id="c-value">\(c=0.5\)</span></div>
+<input id="c-slider" type="range" min="-1" max="2" value="0.5" step="0.01">
+</div>
+<button id="reveal" class="reveal" type="button">Mostrar el valor o los valores de \(c\)</button>
+</div>
+</section>
+
+<section class="card visual" aria-label="Visualización geométrica">
+<div class="legend">
+<span><i class="swatch" style="background:#0057b8"></i>Función</span>
+<span><i class="swatch" style="background:rgba(0,140,149,.55)"></i>Área bajo la curva</span>
+<span><i class="swatch" style="background:rgba(214,165,42,.62)"></i>Rectángulo equivalente</span>
+<span><i class="swatch" style="background:#7357b8"></i>Punto candidato</span>
+</div>
+<div id="plot" class="plot" role="img" aria-label="Función, área bajo la curva, rectángulo equivalente y punto candidato c"></div>
+</section>
+
+<section class="results" aria-label="Resultados">
+<article class="result"><h3>Área con signo</h3><p id="integral-result"></p></article>
+<article class="result average"><h3>Valor promedio</h3><p id="average-result"></p></article>
+<article class="result candidate"><h3>Valor en el candidato</h3><p id="candidate-result"></p></article>
+<article class="result"><h3>Diferencia</h3><p id="difference-result"></p></article>
+</section>
+<div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+
+<section class="card explanation">
+<h2 id="example-title"></h2>
+<p id="example-description"></p>
+<div id="area-equality" class="equality"></div>
+</section>
+
+<footer><p><strong>Departamento de Matemática Aplicada</strong> · Universidad Galileo</p><p>Applet educativo desarrollado con apoyo de IA · <a href="mailto:alberth@galileo.edu">alberth@galileo.edu</a></p></footer>
+</main>
+
+<script>
+(()=>{'use strict';
+const COLORS={navy:'#12324a',blue:'#0057b8',gold:'#d6a52a',orange:'#d96d16',violet:'#7357b8',turquoise:'#008c95',grid:'rgba(82,107,121,.24)',ink:'#173042'};
+const plot=document.getElementById('plot'),slider=document.getElementById('c-slider'),cValue=document.getElementById('c-value'),revealButton=document.getElementById('reveal');
+const samplePlot=document.getElementById('sample-plot'),sampleSlider=document.getElementById('sample-slider'),sampleNumber=document.getElementById('sample-number'),sampleNValue=document.getElementById('sample-n-value'),sampleAverage=document.getElementById('sample-average'),exactAverage=document.getElementById('exact-average'),sampleError=document.getElementById('sample-error');
+const rmsPlot=document.getElementById('rms-plot'),rmsCaseFormula=document.getElementById('rms-case-formula'),rmsAverage=document.getElementById('rms-average'),rmsValue=document.getElementById('rms-value');
+const integralResult=document.getElementById('integral-result'),averageResult=document.getElementById('average-result'),candidateResult=document.getElementById('candidate-result'),differenceResult=document.getElementById('difference-result'),feedback=document.getElementById('feedback');
+const exampleTitle=document.getElementById('example-title'),exampleDescription=document.getElementById('example-description'),areaEquality=document.getElementById('area-equality');
+const linspace=(a,b,n)=>Array.from({length:n},(_,i)=>a+(b-a)*i/(n-1));
+const clean=value=>Math.abs(value)<1e-12?0:value;
+const format=(value,digits=6)=>clean(value).toLocaleString('es-GT',{minimumFractionDigits:digits,maximumFractionDigits:digits});
+const scientificLatex=value=>{const normalized=clean(value);if(normalized===0)return'0';const [mantissa,exponent]=normalized.toExponential(6).split('e');return`${mantissa}\\times10^{${Number(exponent)}}`};
+const examples={
+ parabola:{a:-1,b:2,step:.01,f:x=>1+x*x,integral:6,average:2,solutions:[-1,1],xTitle:'x',yTitle:'f(x)',unit:'',title:'Función cuadrática',description:'En este caso existen dos puntos que cumplen el teorema. La recta horizontal de altura \\(f_{\\mathrm{ave}}=2\\) corta la gráfica en \\(c=-1\\) y \\(c=1\\).',functionLatex:'f',integralLatex:'\\int_{-1}^{2}(1+x^2)\\,dx=6',rectangleLatex:'f_{\\mathrm{ave}}(2-(-1))=2(3)=6'},
+ density:{a:0,b:8,step:.01,f:x=>12/Math.sqrt(x+1),integral:48,average:6,solutions:[3],xTitle:'x (m)',yTitle:'ρ(x) (kg/m)',unit:' kg/m',title:'Densidad lineal de una varilla',description:'La densidad promedio de la varilla es \\(6\\,\\mathrm{kg/m}\\). El teorema garantiza un punto donde la densidad instantánea coincide con ese promedio.',functionLatex:'\\rho',integralLatex:'\\int_{0}^{8}\\frac{12}{\\sqrt{x+1}}\\,dx=48\\,\\mathrm{kg}',rectangleLatex:'\\rho_{\\mathrm{ave}}(8-0)=6(8)=48\\,\\mathrm{kg}'}
+};
+let showSolutions=false;
+function selectedKey(){return document.querySelector('input[name="case"]:checked').value}
+function current(){return examples[selectedKey()]}
+function renderMath(element,latex){
+ const ticket=(element._ticket||0)+1;element._ticket=ticket;
+ const attempt=(remaining=120)=>{if(element._ticket!==ticket)return;if(window.MathJax?.tex2svgPromise){Promise.resolve(MathJax.startup?.promise).then(()=>MathJax.tex2svgPromise(latex,{display:false})).then(node=>{if(element._ticket===ticket)element.replaceChildren(node)}).catch(()=>{})}else if(remaining>0)setTimeout(()=>attempt(remaining-1),50)};attempt();
+}
+function typeset(elements){
+ const attempt=(remaining=120)=>{if(window.MathJax?.typesetPromise){Promise.resolve(MathJax.startup?.promise).then(()=>MathJax.typesetPromise(elements)).catch(()=>{})}else if(remaining>0)setTimeout(()=>attempt(remaining-1),50)};attempt();
+}
+function updateSampling(){
+ const n=Math.max(1,Math.min(80,Math.round(Number(sampleSlider.value)||1))),a=0,b=2*Math.PI,dx=(b-a)/n,f=t=>5+2*Math.exp(-t/4)*Math.sin(2*t);
+ sampleSlider.value=n;sampleNumber.value=n;
+ const mids=Array.from({length:n},(_,i)=>a+(i+.5)*dx),values=mids.map(f),sampleMean=values.reduce((sum,value)=>sum+value,0)/n,exact=5+32*(1-Math.exp(-Math.PI/2))/(65*Math.PI),relativePercent=Math.abs(sampleMean-exact)/Math.abs(exact)*100;
+ const xs=linspace(a,b,501),ys=xs.map(f),stemsX=[],stemsY=[];
+ mids.forEach((x,i)=>{stemsX.push(x,x,null);stemsY.push(0,values[i],null)});
+ const traces=[
+  {type:'scatter',mode:'lines',x:xs,y:ys,line:{color:COLORS.blue,width:4},hovertemplate:'f(x)=%{y:.4f}<extra></extra>',showlegend:false},
+  {type:'scatter',mode:'lines',x:stemsX,y:stemsY,line:{color:'rgba(115,87,184,.38)',width:1},hoverinfo:'skip',showlegend:false},
+  {type:'scatter',mode:'markers',x:mids,y:values,marker:{color:COLORS.violet,size:n>35?6:9,line:{color:'#3e2c72',width:1}},hovertemplate:'xᵢ*=%{x:.4f}<br>f(xᵢ*)=%{y:.4f}<extra></extra>',showlegend:false},
+  {type:'scatter',mode:'lines',x:[a,b],y:[sampleMean,sampleMean],line:{color:COLORS.orange,width:3,dash:'dash'},hoverinfo:'skip',showlegend:false},
+  {type:'scatter',mode:'lines',x:[a,b],y:[exact,exact],line:{color:COLORS.gold,width:3,dash:'dot'},hoverinfo:'skip',showlegend:false}
+ ];
+ const layout={margin:{l:58,r:24,t:18,b:54},paper_bgcolor:'#fff',plot_bgcolor:'#fff',showlegend:false,hovermode:'closest',annotations:[
+  {x:b,y:sampleMean,text:`<b>Promedio muestral ≈ ${format(sampleMean,5)}</b>`,showarrow:false,xanchor:'right',yshift:13,bgcolor:'rgba(255,245,235,.94)',bordercolor:COLORS.orange,borderwidth:1,font:{color:'#8a410c'}},
+  {x:b,y:exact,text:`<b>Valor promedio ≈ ${format(exact,5)}</b>`,showarrow:false,xanchor:'right',yshift:-15,bgcolor:'rgba(255,248,229,.96)',bordercolor:COLORS.gold,borderwidth:1,borderpad:5,font:{color:'#715400'}}],
+  xaxis:{title:{text:'x',standoff:10},range:[-.25,b+.25],tickvals:[0,Math.PI/2,Math.PI,3*Math.PI/2,2*Math.PI],ticktext:['0','π/2','π','3π/2','2π'],gridcolor:COLORS.grid,zeroline:true,zerolinecolor:'#111827',zerolinewidth:2,linecolor:'#111827',linewidth:2,ticks:'outside'},
+  yaxis:{title:{text:'f(x)',standoff:8},range:[0,Math.max(...ys)*1.12],gridcolor:COLORS.grid,zeroline:true,zerolinecolor:'#111827',zerolinewidth:2,linecolor:'#111827',linewidth:2,ticks:'outside'},font:{family:'Inter, ui-sans-serif, system-ui',color:COLORS.ink}};
+ Plotly.react(samplePlot,traces,layout,{responsive:true,displaylogo:false,modeBarButtonsToRemove:['lasso2d','select2d']});
+ const relativePercentLatex=relativePercent<.01?scientificLatex(relativePercent):format(relativePercent,6);
+ renderMath(sampleNValue,`n=${n}`);renderMath(sampleAverage,`\\overline f_{${n}}\\approx ${format(sampleMean,8)}`);renderMath(exactAverage,`f_{\\mathrm{ave}}\\approx ${format(exact,8)}`);renderMath(sampleError,`E_r\\approx ${relativePercentLatex}\\%`);
+}
+function updateRms(){
+ const vp=10,key=document.querySelector('input[name="rms-case"]:checked').value,cases={
+  sine:{f:t=>vp*Math.sin(t),average:0,rms:vp/Math.sqrt(2),formula:'V(t)=V_p\\sin t'},
+  rectified:{f:t=>vp*Math.abs(Math.sin(t)),average:2*vp/Math.PI,rms:vp/Math.sqrt(2),formula:'V(t)=V_p\\lvert\\sin t\\rvert'},
+  square:{f:t=>Math.sin(t)>=0?vp:-vp,average:0,rms:vp,formula:'V(t)=V_p\\,\\operatorname{sgn}(\\sin t)'}
+ },signal=cases[key],xs=linspace(0,2*Math.PI,1201),ys=xs.map(signal.f),isNonnegative=key==='rectified';
+ const traces=[
+  {type:'scatter',mode:'lines',x:xs,y:ys,fill:'tozeroy',fillcolor:'rgba(0,87,184,.10)',line:{color:COLORS.blue,width:4},hovertemplate:'x=%{x:.4f}<br>V(x)=%{y:.4f} V<extra></extra>',showlegend:false},
+  {type:'scatter',mode:'lines',x:[0,2*Math.PI],y:[signal.average,signal.average],line:{color:COLORS.orange,width:4,dash:'dash'},hoverinfo:'skip',showlegend:false},
+  {type:'scatter',mode:'lines',x:[0,2*Math.PI],y:[signal.rms,signal.rms],line:{color:COLORS.gold,width:4,dash:'dot'},hoverinfo:'skip',showlegend:false}
+ ];
+ const layout={margin:{l:64,r:28,t:22,b:58},paper_bgcolor:'#fff',plot_bgcolor:'#fff',showlegend:false,hovermode:'closest',annotations:[
+  {x:2*Math.PI,y:signal.average,text:`<b>V<sub>ave</sub> ≈ ${format(signal.average,4)} V</b>`,showarrow:false,xanchor:'right',yshift:isNonnegative?-17:17,bgcolor:'rgba(255,245,235,.95)',bordercolor:COLORS.orange,borderwidth:1,font:{color:'#8a410c'}},
+  {x:2*Math.PI,y:signal.rms,text:`<b>V<sub>RMS</sub> ≈ ${format(signal.rms,4)} V</b>`,showarrow:false,xanchor:'right',yshift:15,bgcolor:'rgba(255,248,229,.96)',bordercolor:COLORS.gold,borderwidth:1,font:{color:'#715400'}}],
+  xaxis:{title:{text:'t',standoff:10},range:[-.24,2*Math.PI+.24],tickvals:[0,Math.PI/2,Math.PI,3*Math.PI/2,2*Math.PI],ticktext:['0','π/2','π','3π/2','2π'],gridcolor:COLORS.grid,zeroline:false,linecolor:'#111827',linewidth:2,ticks:'outside'},
+  yaxis:{title:{text:'V(t) (V)',standoff:9},range:isNonnegative?[0,1.18*vp]:[-1.18*vp,1.18*vp],gridcolor:COLORS.grid,zeroline:true,zerolinecolor:'#111827',zerolinewidth:2,linecolor:'#111827',linewidth:2,ticks:'outside'},font:{family:'Inter, ui-sans-serif, system-ui',color:COLORS.ink}};
+ Plotly.react(rmsPlot,traces,layout,{responsive:true,displaylogo:false,modeBarButtonsToRemove:['lasso2d','select2d']});
+ renderMath(rmsCaseFormula,`${signal.formula},\\qquad V_p=10\\,\\mathrm V`);renderMath(rmsAverage,`V_{\\mathrm{ave}}\\approx ${format(signal.average,8)}\\,\\mathrm V`);renderMath(rmsValue,`V_{\\mathrm{RMS}}\\approx ${format(signal.rms,8)}\\,\\mathrm V`);
+}
+function updatePlot(){
+ const example=current(),c=Number(slider.value),fc=example.f(c),difference=fc-example.average,xs=linspace(example.a,example.b,501),ys=xs.map(example.f);
+ const rectangleX=[example.a,example.b,example.b,example.a,example.a],rectangleY=[0,0,example.average,example.average,0];
+ const areaX=[example.a,...xs,example.b],areaY=[0,...ys,0];
+ const traces=[
+  {type:'scatter',mode:'lines',x:rectangleX,y:rectangleY,fill:'toself',fillcolor:'rgba(214,165,42,.25)',line:{color:'rgba(214,165,42,.75)',width:2},hoverinfo:'skip',showlegend:false},
+  {type:'scatter',mode:'lines',x:areaX,y:areaY,fill:'toself',fillcolor:'rgba(0,140,149,.20)',line:{color:'rgba(0,0,0,0)'},hoverinfo:'skip',showlegend:false},
+  {type:'scatter',mode:'lines',x:xs,y:ys,line:{color:COLORS.blue,width:4},hovertemplate:`${example.functionLatex}(x)=%{y:.4f}<extra></extra>`,showlegend:false},
+  {type:'scatter',mode:'lines',x:[example.a,example.b],y:[example.average,example.average],line:{color:COLORS.orange,width:3,dash:'dash'},hoverinfo:'skip',showlegend:false},
+  {type:'scatter',mode:'lines+markers',x:[c,c],y:[0,fc],line:{color:COLORS.violet,width:2,dash:'dot'},marker:{color:COLORS.violet,size:[1,11],line:{color:'#3e2c72',width:1}},hovertemplate:`c=${format(c,2)}<br>f(c)=${format(fc,4)}<extra></extra>`,showlegend:false}
+ ];
+ if(showSolutions){for(const solution of example.solutions)traces.push({type:'scatter',mode:'lines+markers',x:[solution,solution],y:[0,example.average],line:{color:COLORS.gold,width:3,dash:'dash'},marker:{color:COLORS.gold,size:[1,12],symbol:['circle','star'],line:{color:'#715400',width:1}},hovertemplate:`c=${format(solution,2)}<extra></extra>`,showlegend:false})}
+ const maxY=Math.max(...ys,example.average)*1.14;
+ const annotations=[{x:example.b,y:example.average,text:'<b>f<sub>ave</sub></b>',showarrow:false,xanchor:'right',yshift:13,bgcolor:'rgba(255,248,229,.92)',bordercolor:COLORS.gold,borderwidth:1,font:{color:'#765700'}},{x:c,y:fc,text:`<b>f(c)=${format(fc,3)}</b>`,showarrow:true,arrowcolor:COLORS.violet,ax:showSolutions?38:42,ay:-35,bgcolor:'rgba(247,244,252,.94)',bordercolor:COLORS.violet,borderwidth:1,font:{color:'#3e2c72'}}];
+ const layout={margin:{l:68,r:28,t:25,b:62},paper_bgcolor:'#fff',plot_bgcolor:'#fff',showlegend:false,hovermode:'closest',annotations,
+  xaxis:{title:{text:example.xTitle,standoff:12},range:[example.a-(example.b-example.a)*.08,example.b+(example.b-example.a)*.08],gridcolor:COLORS.grid,zeroline:true,zerolinecolor:'#111827',zerolinewidth:2,linecolor:'#111827',linewidth:2,ticks:'outside'},
+  yaxis:{title:{text:example.yTitle,standoff:10},range:[0,maxY],gridcolor:COLORS.grid,zeroline:true,zerolinecolor:'#111827',zerolinewidth:2,linecolor:'#111827',linewidth:2,ticks:'outside'},font:{family:'Inter, ui-sans-serif, system-ui',color:COLORS.ink}};
+ Plotly.react(plot,traces,layout,{responsive:true,displaylogo:false,modeBarButtonsToRemove:['lasso2d','select2d']});
+ renderMath(cValue,`c=${format(c,2)}`);renderMath(integralResult,example.integralLatex);renderMath(averageResult,`${example.functionLatex}_{\\mathrm{ave}}=${format(example.average,6)}${example.unit?'\\,\\mathrm{kg/m}':''}`);renderMath(candidateResult,`${example.functionLatex}(${format(c,2)})=${format(fc,6)}${example.unit?'\\,\\mathrm{kg/m}':''}`);renderMath(differenceResult,`${example.functionLatex}(c)-${example.functionLatex}_{\\mathrm{ave}}=${format(difference,6)}`);
+ const tolerance=Math.max(example.step*.55,1e-6),near=example.solutions.some(solution=>Math.abs(c-solution)<=tolerance);
+ feedback.classList.toggle('success',near);feedback.textContent=near?'El punto seleccionado satisface el Teorema del Valor Medio para Integrales.':'Mueve c hasta que el punto violeta alcance la recta horizontal del valor promedio.';
+}
+function loadExample(){
+ const example=current();showSolutions=false;revealButton.textContent='Mostrar el valor o los valores de c';slider.min=example.a;slider.max=example.b;slider.step=example.step;slider.value=(example.a+example.b)/2;MathJax.typesetClear?.([exampleDescription,areaEquality]);
+ exampleTitle.textContent=example.title;exampleDescription.innerHTML=example.description;areaEquality.innerHTML=`\\[${example.integralLatex}= ${example.rectangleLatex}\\]`;typeset([exampleDescription,areaEquality]);updatePlot();
+}
+sampleSlider.addEventListener('input',updateSampling);sampleNumber.addEventListener('input',()=>{if(sampleNumber.value!==''){sampleSlider.value=sampleNumber.value;updateSampling()}});sampleNumber.addEventListener('change',updateSampling);
+document.querySelectorAll('input[name="rms-case"]').forEach(input=>input.addEventListener('change',updateRms));
+slider.addEventListener('input',updatePlot);document.querySelectorAll('input[name="case"]').forEach(input=>input.addEventListener('change',loadExample));revealButton.addEventListener('click',()=>{showSolutions=!showSolutions;revealButton.textContent=showSolutions?'Ocultar el valor o los valores de c':'Mostrar el valor o los valores de c';if(showSolutions)slider.value=current().solutions[0];updatePlot()});window.addEventListener('resize',()=>{Plotly.Plots.resize(samplePlot);Plotly.Plots.resize(rmsPlot);Plotly.Plots.resize(plot)});updateSampling();updateRms();loadExample();
+})();
+</script>
+</body>
+</html>
